@@ -3,83 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jo-Ann's Task Calendar</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icons/intake192.png">
-    <meta name="theme-color" content="#faf602">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Jo-Ann's Calendar">
-    <meta name="description" content="Task Management Calendar by Jo-Ann">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" type="image/png" sizes="72x72" href="icons/intake72.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="icons/intake96.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="icons/intake192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="icons/intake512.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Jo-Ann's Intake - Referral Form</title>
     <style>
-        /* SCOPED STYLES - Updated with Jo-Ann's gold/brown/off-white color scheme */
-        .miralex-container,
-        .miralex-container * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
         
-        .miralex-container body {
-            background: linear-gradient(135deg, #faf602 0%, #f5f1ed 50%, #70410a 100%);
-            padding: 20px;
-            margin: 0;
+        body {
             min-height: 100vh;
-        }
-
-        .miralex-container html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Main container */
-        .miralex-container .form-container {
-            max-width: 1000px;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            overflow: hidden;
-            margin: 0 auto;
-            box-shadow: 0 15px 30px rgba(112, 65, 10, 0.3);
-            border: 8px solid transparent;
-            border-image: linear-gradient(45deg, #faf602, #70410a) 1;
-            animation: borderGlow 3s infinite alternate;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #faf602 0%, #f5f1ed 50%, #70410a 100%);
             position: relative;
+            overflow-x: hidden;
         }
         
-        .miralex-container @keyframes borderGlow {
-            0% { border-image-source: linear-gradient(45deg, #faf602, #70410a); }
-            50% { border-image-source: linear-gradient(45deg, #70410a, #faf602); }
-            100% { border-image-source: linear-gradient(45deg, #faf602, #70410a); }
-        }
-        
-        /* Inner wrapper */
-        .miralex-container .form-wrapper {
-            padding: 30px;
-        }
-        
-        /* Header */
-        .miralex-container .calendar-header-main {
-            background: linear-gradient(90deg, #70410a, #faf602);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Spotlight effect on header */
-        .miralex-container .calendar-header-main::after {
+        /* Spotlight Effect */
+        body::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -87,7 +32,8 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle at 30% 40%, rgba(250, 246, 2, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 60%, rgba(245, 241, 237, 0.3) 0%, transparent 50%);
+                        radial-gradient(circle at 70% 60%, rgba(245, 241, 237, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 70%, rgba(112, 65, 10, 0.2) 0%, transparent 50%);
             animation: spotlight 15s infinite alternate;
             pointer-events: none;
             z-index: 0;
@@ -96,1369 +42,729 @@
         @keyframes spotlight {
             0% {
                 transform: translate(0, 0) rotate(0deg);
-                opacity: 0.3;
+                opacity: 0.5;
             }
             50% {
                 transform: translate(-5%, -5%) rotate(2deg);
-                opacity: 0.6;
+                opacity: 0.8;
             }
             100% {
                 transform: translate(5%, 5%) rotate(-2deg);
-                opacity: 0.3;
+                opacity: 0.5;
             }
         }
         
-        .miralex-container .calendar-header-main h1 {
-            font-size: 2.8rem;
-            text-shadow: 2px 2px 4px rgba(112, 65, 10, 0.3);
-            margin-bottom: 5px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .miralex-container .calendar-header-main .subtitle {
-            font-size: 1.4rem;
-            font-weight: 300;
-            opacity: 0.9;
-            letter-spacing: 1px;
-            position: relative;
-            z-index: 1;
-            color: #f5f1ed;
-        }
-        
-        .miralex-container .calendar-header-main i {
-            margin-right: 10px;
-            color: #faf602;
-        }
-        
-        /* Calendar Section */
-        .miralex-container .calendar-section {
+        .form-container {
+            width: 100%;
+            max-width: 800px;
             background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(5px);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(112, 65, 10, 0.1);
-            border: 2px solid #faf602;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .miralex-container .calendar-section:hover {
-            box-shadow: 0 8px 25px rgba(250, 246, 2, 0.2);
-        }
-        
-        .miralex-container .calendar-section h2 {
-            color: #70410a;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            border-bottom: 3px solid #faf602;
-            padding-bottom: 10px;
-        }
-        
-        /* Calendar Styles */
-        .miralex-container .calendar-container { margin-bottom: 30px; }
-        .miralex-container .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .miralex-container .calendar-header button {
-            background: linear-gradient(45deg, #faf602, #70410a);
-            border: none;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.3s;
-        }
-        .miralex-container .calendar-header button:hover {
-            transform: scale(1.05);
-            background: linear-gradient(45deg, #70410a, #faf602);
-        }
-        .miralex-container .calendar-header h3 {
-            color: #70410a;
-            font-size: 1.4rem;
-        }
-        .miralex-container .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-            margin-bottom: 15px;
-        }
-        .miralex-container .calendar-day {
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-            color: #70410a;
-            background-color: rgba(250, 246, 2, 0.2);
-            border-radius: 5px;
-            font-size: 0.8rem;
-        }
-        .miralex-container .calendar-date {
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background-color: #f5f1ed;
-            border: 2px solid transparent;
-            min-height: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #70410a;
-            transform: scale(1);
-        }
-        .miralex-container .calendar-date:hover {
-            background: linear-gradient(45deg, #faf602, #70410a);
-            color: white;
-            transform: scale(1.05) translateY(-2px);
-            border: 2px solid #70410a;
-            box-shadow: 0 5px 15px rgba(250, 246, 2, 0.3);
-        }
-        .miralex-container .calendar-date.selected {
-            background: linear-gradient(45deg, #faf602, #70410a);
-            color: white;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(250, 246, 2, 0.3);
-            transform: scale(1.02);
-            animation: pulse 0.5s ease;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1.02); }
-        }
-        
-        /* Task indicator on calendar dates */
-        .miralex-container .calendar-date.has-task {
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(112, 65, 10, 0.3),
+                        0 0 0 2px rgba(250, 246, 2, 0.3),
+                        0 0 20px rgba(250, 246, 2, 0.2);
             position: relative;
+            z-index: 1;
+            border: 1px solid rgba(250, 246, 2, 0.3);
         }
-        .miralex-container .calendar-date.has-task::after {
-            content: '📋';
+        
+        /* Decorative spotlight effect on form */
+        .form-container::after {
+            content: '';
             position: absolute;
-            top: 2px;
-            right: 2px;
-            font-size: 12px;
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-2px); }
-        }
-        
-        /* Disabled dates styling */
-        .miralex-container .calendar-date.disabled {
-            background-color: #e0e0e0;
-            color: #999;
-            cursor: not-allowed;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: radial-gradient(circle at 30% 30%, rgba(250, 246, 2, 0.1) 0%, transparent 60%),
+                        radial-gradient(circle at 70% 70%, rgba(112, 65, 10, 0.1) 0%, transparent 60%);
+            border-radius: 50px;
+            z-index: -1;
             pointer-events: none;
-            text-decoration: line-through;
-            opacity: 0.6;
         }
         
-        /* Time slot selection */
-        .miralex-container .time-slots-container {
-            margin-top: 20px;
-            margin-bottom: 20px;
-            animation: slideDown 0.5s ease;
-        }
-        
-        @keyframes slideDown {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .miralex-container .time-slots-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .miralex-container .time-slot {
-            padding: 12px;
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #70410a 0%, #faf602 50%, #70410a 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             text-align: center;
-            background-color: #f5f1ed;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
-            color: #70410a;
-            transform: scale(1);
-        }
-        .miralex-container .time-slot:hover {
-            background-color: rgba(250, 246, 2, 0.3);
-            border-color: #70410a;
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 3px 10px rgba(112, 65, 10, 0.2);
-        }
-        .miralex-container .time-slot.selected {
-            background: linear-gradient(45deg, #faf602, #70410a);
-            color: white;
-            font-weight: bold;
-            transform: scale(1.02);
-            animation: slotPulse 0.4s ease;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(250, 246, 2, 0.2);
         }
         
-        @keyframes slotPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1.02); }
-        }
-        
-        /* Selected Date/Time Display */
-        .miralex-container .selected-datetime {
-            background: linear-gradient(90deg, #faf602, #70410a);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
+        .subtitle {
             text-align: center;
-            margin-bottom: 25px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(250, 246, 2, 0.3);
-            transition: all 0.4s ease;
-            animation: glowPulse 3s infinite;
-        }
-        
-        @keyframes glowPulse {
-            0%, 100% { box-shadow: 0 5px 15px rgba(250, 246, 2, 0.3); }
-            50% { box-shadow: 0 8px 25px rgba(250, 246, 2, 0.6); }
-        }
-        
-        /* Task Section */
-        .miralex-container .task-section {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(5px);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(112, 65, 10, 0.1);
-            border: 2px solid #faf602;
-            transition: all 0.5s ease;
-        }
-        
-        .miralex-container .task-section:hover {
-            box-shadow: 0 8px 25px rgba(250, 246, 2, 0.2);
-        }
-        
-        .miralex-container .task-section h2 {
             color: #70410a;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            border-bottom: 3px solid #faf602;
-            padding-bottom: 10px;
-        }
-        
-        /* Form Elements */
-        .miralex-container .form-group { margin-bottom: 20px; }
-        .miralex-container .form-label { 
-            display: block; 
-            margin-bottom: 8px; 
-            font-weight: 600; 
-            color: #70410a;
+            margin-bottom: 30px;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-        .miralex-container .form-select {
-            width: 100%;
-            padding: 15px;
-            border-radius: 10px;
-            border: 3px solid #faf602;
-            font-size: 16px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: white;
-            color: #70410a;
+            border-bottom: 2px solid #faf602;
+            padding-bottom: 15px;
             font-weight: 500;
-            cursor: pointer;
-            animation: slideIn 0.5s ease;
         }
         
-        .miralex-container .form-select:focus {
-            outline: none;
-            border-color: #70410a;
-            box-shadow: 0 0 0 3px rgba(250, 246, 2, 0.3);
-            transform: scale(1.02);
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
         
-        .miralex-container .form-select:hover {
-            border-color: #70410a;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(250, 246, 2, 0.2);
+        .form-group {
+            margin-bottom: 20px;
         }
         
-        /* Task textarea */
-        .miralex-container .task-textarea {
-            width: 100%;
-            padding: 15px;
-            border-radius: 10px;
-            border: 3px solid #faf602;
-            font-size: 16px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: white;
-            min-height: 150px;
-            resize: vertical;
-            font-family: inherit;
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
             color: #70410a;
-        }
-        .miralex-container .task-textarea:focus {
-            outline: none;
-            border-color: #70410a;
-            box-shadow: 0 0 0 3px rgba(250, 246, 2, 0.3);
-            transform: scale(1.01);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
         }
         
-        /* Word counter */
-        .miralex-container .word-counter {
-            text-align: right;
-            font-size: 0.9rem;
-            color: #70410a;
-            margin-top: 5px;
-            font-weight: 500;
-            animation: fadeIn 0.5s ease;
-        }
-        .miralex-container .word-counter i {
+        label i {
             color: #faf602;
             margin-right: 5px;
+            text-shadow: 0 0 5px rgba(250, 246, 2, 0.5);
         }
         
-        /* Custom task section */
-        .miralex-container .custom-task-section {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px dashed #faf602;
-            animation: slideUp 0.6s ease;
-        }
-        
-        @keyframes slideUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideIn {
-            0% {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-        
-        /* Action Buttons */
-        .miralex-container .action-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-            animation: slideUp 0.7s ease;
-        }
-        
-        .miralex-container .add-task-btn {
-            background: linear-gradient(45deg, #faf602, #70410a);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 5px 15px rgba(250, 246, 2, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            flex: 2;
-            transform: scale(1);
-        }
-        
-        .miralex-container .add-task-btn:hover { 
-            transform: translateY(-3px) scale(1.02); 
-            background: linear-gradient(45deg, #70410a, #faf602);
-            box-shadow: 0 8px 20px rgba(250, 246, 2, 0.4);
-        }
-        
-        .miralex-container .share-sms-btn {
-            background: white;
-            color: #70410a;
-            border: 3px solid #faf602;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            flex: 1;
-            transform: scale(1);
-        }
-        
-        .miralex-container .share-sms-btn:hover {
-            background: #faf602;
-            color: #70410a;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 5px 15px rgba(250, 246, 2, 0.4);
-        }
-        
-        /* View All Tasks Button */
-        .miralex-container .view-tasks-btn {
-            background: white;
-            color: #70410a;
-            border: 3px solid #faf602;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+        input, select, textarea {
             width: 100%;
-            margin-bottom: 20px;
-            transform: scale(1);
-        }
-        
-        .miralex-container .view-tasks-btn:hover {
-            background: #faf602;
-            color: #70410a;
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 5px 15px rgba(250, 246, 2, 0.4);
-        }
-        
-        .miralex-container .view-tasks-btn i {
-            color: #faf602;
-            transition: transform 0.3s ease;
-        }
-        
-        .miralex-container .view-tasks-btn:hover i {
-            color: #70410a;
-            transform: rotate(90deg);
-        }
-        
-        /* Phone input modal */
-        .miralex-container .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(112, 65, 10, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .miralex-container .modal-overlay.show {
-            display: flex;
-        }
-        
-        .miralex-container .phone-modal {
-            background: white;
-            padding: 35px 30px;
-            border-radius: 25px;
-            max-width: 450px;
-            width: 90%;
-            border: 4px solid #faf602;
-            box-shadow: 0 20px 40px rgba(112, 65, 10, 0.3);
-            animation: slideUpModal 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        @keyframes slideUpModal {
-            0% {
-                opacity: 0;
-                transform: translateY(50px) scale(0.9);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        .miralex-container .phone-modal h3 {
-            color: #70410a;
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-            text-align: center;
-        }
-        
-        .miralex-container .phone-modal h3 i {
-            color: #faf602;
-            margin-right: 10px;
-        }
-        
-        .miralex-container .phone-input {
-            width: 100%;
-            padding: 18px;
-            border: 3px solid #faf602;
+            padding: 12px 15px;
+            border: 2px solid rgba(112, 65, 10, 0.2);
             border-radius: 15px;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            text-align: center;
-            background: #f5f1ed;
-            color: #70410a;
+            font-size: 1rem;
             transition: all 0.3s ease;
-        }
-        
-        .miralex-container .phone-input:focus {
-            outline: none;
-            border-color: #70410a;
-            background: white;
-            transform: scale(1.02);
-        }
-        
-        .miralex-container .modal-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .miralex-container .modal-btn {
-            padding: 15px 25px;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            min-width: 140px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transform: scale(1);
-        }
-        
-        .miralex-container .modal-btn.send {
-            background: linear-gradient(45deg, #faf602, #70410a);
-            color: white;
-            box-shadow: 0 5px 15px rgba(250, 246, 2, 0.3);
-        }
-        
-        .miralex-container .modal-btn.cancel {
-            background: #f5f1ed;
-            color: #70410a;
-            border: 2px solid #faf602;
-        }
-        
-        .miralex-container .modal-btn.send:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(250, 246, 2, 0.4);
-        }
-        
-        .miralex-container .modal-btn.cancel:hover {
-            background: #ffe6e6;
-            border-color: #ff4444;
-            color: #ff4444;
-            transform: translateY(-3px) scale(1.05);
-        }
-        
-        .miralex-container .modal-btn i {
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .miralex-container .modal-btn:hover i {
-            transform: translateX(3px);
-        }
-        
-        /* Tasks List */
-        .miralex-container .tasks-list {
-            margin-top: 30px;
-            background: #f5f1ed;
-            border-radius: 10px;
-            padding: 20px;
-            display: none;
-            border: 2px solid #faf602;
-            animation: slideUp 0.5s ease;
-        }
-        
-        .miralex-container .tasks-list.show {
-            display: block;
-        }
-        
-        .miralex-container .tasks-list h3 {
-            color: #70410a;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .miralex-container .close-tasks {
-            background: none;
-            border: none;
-            color: #70410a;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-        
-        .miralex-container .close-tasks:hover {
-            background: #faf602;
-            color: #70410a;
-            transform: rotate(90deg);
-        }
-        
-        .miralex-container .task-item {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border-left: 5px solid #faf602;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            animation: slideIn 0.3s ease;
-            transition: all 0.3s ease;
-        }
-        
-        .miralex-container .task-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 3px 10px rgba(112, 65, 10, 0.1);
-        }
-        
-        .miralex-container .task-item .task-info {
-            flex: 1;
-        }
-        
-        .miralex-container .task-item .task-date {
-            color: #70410a;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-        
-        .miralex-container .task-item .task-text {
-            margin-top: 5px;
+            background: rgba(255, 255, 255, 0.9);
             color: #333;
         }
         
-        .miralex-container .task-item .delete-task {
-            color: #ff4444;
-            cursor: pointer;
-            font-size: 1.2rem;
-            padding: 5px 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .miralex-container .task-item .delete-task:hover {
-            transform: scale(1.2) rotate(90deg);
-            color: #ff0000;
-        }
-        
-        /* Empty state */
-        .miralex-container .no-tasks {
-            text-align: center;
-            color: #70410a;
-            padding: 20px;
-            font-style: italic;
-            animation: fadeIn 1s ease;
-        }
-        
-        /* PWA Installation Prompt */
-        .miralex-container .install-prompt {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #faf602;
+            box-shadow: 0 0 15px rgba(250, 246, 2, 0.4);
             background: white;
-            border: 4px solid #faf602;
-            border-radius: 15px;
-            padding: 15px;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 400px;
-            margin: 0 auto;
-            z-index: 2000;
-            box-shadow: 0 10px 30px rgba(112, 65, 10, 0.3);
-            animation: slideUp 0.4s ease;
         }
         
-        .miralex-container .install-prompt.show {
-            display: flex;
+        input:hover, select:hover, textarea:hover {
+            border-color: #70410a;
         }
         
-        .miralex-container .install-prompt span {
-            color: #70410a;
-            font-weight: bold;
-        }
-        
-        .miralex-container .install-prompt button {
-            background: linear-gradient(45deg, #faf602, #70410a);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 25px;
+        select {
             cursor: pointer;
-            font-weight: bold;
-            margin-left: 10px;
-            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2370410a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
         }
         
-        .miralex-container .install-prompt button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 3px 10px rgba(250, 246, 2, 0.4);
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 10px 0;
+        }
+        
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: #70410a;
+            font-weight: 500;
+        }
+        
+        .radio-label input[type="radio"] {
+            width: auto;
+            accent-color: #faf602;
+        }
+        
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .button-group.two-buttons {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .action-button {
+            flex: 1;
+            min-width: 200px;
+            padding: 18px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(250, 246, 2, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #70410a;
+            background: linear-gradient(135deg, #f5f1ed, #faf602);
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+        
+        .action-button i {
+            font-size: 1.3rem;
+            color: #70410a;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(250, 246, 2, 0.6);
+            background: linear-gradient(135deg, #faf602, #f5f1ed);
+        }
+        
+        .action-button.call-btn {
+            background: linear-gradient(135deg, #70410a, #faf602);
+            color: white;
+        }
+        
+        .action-button.call-btn i {
+            color: white;
+        }
+        
+        .action-button.call-btn:hover {
+            background: linear-gradient(135deg, #faf602, #70410a);
+        }
+        
+        .button-label {
+            text-align: center;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #70410a;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .required::after {
+            content: '*';
+            color: #faf602;
+            margin-left: 4px;
+            font-weight: bold;
+        }
+        
+        /* Character count */
+        .char-count {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #70410a;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+        
+        /* Section dividers */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 25px 0 15px;
+            color: #70410a;
+        }
+        
+        .section-divider hr {
+            flex: 1;
+            border: none;
+            border-top: 2px dashed #faf602;
+        }
+        
+        .section-divider span {
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(250, 246, 2, 0.2);
+            padding: 5px 15px;
+            border-radius: 50px;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
-            .miralex-container .time-slots-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .form-container {
+                padding: 25px;
             }
             
-            .miralex-container .action-buttons {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .button-group {
                 flex-direction: column;
             }
             
-            .miralex-container .calendar-header-main h1 {
-                font-size: 2.2rem;
-            }
-            
-            .miralex-container .calendar-header-main .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .miralex-container .modal-buttons {
-                flex-direction: column;
-            }
-            
-            .miralex-container .modal-btn {
+            .action-button {
                 width: 100%;
+                min-width: auto;
+                padding: 15px;
             }
         }
         
-        @media (max-width: 600px) {
-            .miralex-container body { padding: 10px; }
-            .miralex-container .form-wrapper { padding: 15px; }
-            
-            .miralex-container .calendar-date {
-                padding: 8px;
-                min-height: 50px;
+        /* Referrer section highlight */
+        .referrer-section {
+            background: rgba(250, 246, 2, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 1px dashed #faf602;
+        }
+        
+        .referrer-section h3 {
+            color: #70410a;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .referrer-section h3 i {
+            color: #faf602;
+            font-size: 1.3rem;
+        }
+        
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #70410a;
+            color: #faf602;
+            padding: 15px 30px;
+            border-radius: 50px;
+            z-index: 9999;
+            display: none;
+            font-weight: 500;
+            box-shadow: 0 5px 20px rgba(250, 246, 2, 0.4);
+            border: 2px solid #faf602;
+        }
+        
+        .toast.show {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
             }
-            
-            .miralex-container .phone-modal {
-                padding: 25px 20px;
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
             }
-            
-            .miralex-container .phone-modal h3 {
-                font-size: 1.5rem;
-            }
+        }
+        
+        /* Decorative elements */
+        .spotlight-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .spotlight-dots::before,
+        .spotlight-dots::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(250, 246, 2, 0.1) 0%, transparent 70%);
+            animation: float 10s infinite alternate;
+        }
+        
+        .spotlight-dots::before {
+            top: 10%;
+            left: 5%;
+        }
+        
+        .spotlight-dots::after {
+            bottom: 10%;
+            right: 5%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(112, 65, 10, 0.1) 0%, transparent 70%);
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 30px) scale(1.2); }
         }
     </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="miralex-container">
-        <div class="form-container" id="application">
-            <div class="form-wrapper">
-                <!-- Header with Jo-Ann's Task Calendar -->
-                <div class="calendar-header-main">
-                    <h1><i class="fas fa-swan"></i> Jo-Ann's Task Calendar</h1>
-                    <div class="subtitle"><i class="fas fa-calendar-alt"></i> Organize Your Day with Style</div>
+    <div class="spotlight-dots"></div>
+    
+    <div class="form-container">
+        <h1>✨ Jo-Ann's Intake ✨</h1>
+        <div class="subtitle">Referral & Consultation Request</div>
+        
+        <form id="referralForm">
+            <div class="form-grid">
+                <!-- Name -->
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Full Name <span class="required"></span></label>
+                    <input type="text" id="fullName" placeholder="John Doe" required>
                 </div>
                 
-                <!-- View All Tasks Button -->
-                <button class="view-tasks-btn" id="viewAllTasksBtn">
-                    <i class="fas fa-list"></i> View All Tasks
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label><i class="fas fa-phone"></i> Phone Number <span class="required"></span></label>
+                    <input type="tel" id="phoneNumber" placeholder="(555) 555-5555" required>
+                </div>
+                
+                <!-- Company Name -->
+                <div class="form-group">
+                    <label><i class="fas fa-building"></i> Company Name</label>
+                    <input type="text" id="companyName" placeholder="Your Business Name">
+                </div>
+                
+                <!-- State Dropdown -->
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> State <span class="required"></span></label>
+                    <select id="state" required>
+                        <option value="" disabled selected>Select your state</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                        <option value="DC">Washington DC</option>
+                        <option value="PR">Puerto Rico</option>
+                    </select>
+                </div>
+                
+                <!-- Service Needed Dropdown -->
+                <div class="form-group full-width">
+                    <label><i class="fas fa-concierge-bell"></i> Service Needed <span class="required"></span></label>
+                    <select id="service" required>
+                        <option value="" disabled selected>Select your service</option>
+                        <option value="Consultation">Consultation</option>
+                        <option value="Travel Booking">Travel Booking</option>
+                        <option value="Trip Planning">Trip Planning</option>
+                        <option value="Group Travel">Group Travel</option>
+                        <option value="Corporate Travel">Corporate Travel</option>
+                        <option value="Luxury Travel">Luxury Travel</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <!-- Best Time to Contact -->
+                <div class="form-group">
+                    <label><i class="fas fa-clock"></i> Best Time to Contact <span class="required"></span></label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="time" value="Morning" required> Morning
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="time" value="Afternoon"> Afternoon
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="time" value="Evening"> Evening
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Best Way to Contact -->
+                <div class="form-group">
+                    <label><i class="fas fa-comment"></i> Best Way to Contact <span class="required"></span></label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="contact" value="Call" required> Call
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="contact" value="Text"> Text
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Referrer Information Section -->
+            <div class="referrer-section">
+                <h3><i class="fas fa-user-plus"></i> Who referred you?</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Referrer Name</label>
+                        <input type="text" id="referrerName" placeholder="Person who referred you">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Referrer Phone</label>
+                        <input type="tel" id="referrerPhone" placeholder="(555) 123-4567">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Comments Box -->
+            <div class="form-group full-width">
+                <label><i class="fas fa-comment-dots"></i> Additional Comments (200 words max)</label>
+                <textarea id="comments" placeholder="Tell us about your travel needs, special requests, or any questions you have..." maxlength="1000" oninput="updateCharCount()"></textarea>
+                <div class="char-count"><span id="charCount">0</span>/1000 characters (approx. 200 words)</div>
+            </div>
+            
+            <!-- CALL BUTTON - Always Visible -->
+            <div class="button-container">
+                <div class="section-divider">
+                    <hr>
+                    <span><i class="fas fa-phone-alt"></i> Quick Contact</span>
+                    <hr>
+                </div>
+                
+                <button type="button" class="action-button call-btn" onclick="makeCall()">
+                    <i class="fas fa-phone-alt"></i> Call Jo-Ann Directly
                 </button>
                 
-                <!-- Calendar Section -->
-                <div class="calendar-section">
-                    <!-- Selected Date/Time Display -->
-                    <div class="selected-datetime" id="selectedDateTime">
-                        <i class="fas fa-clock"></i> No date and time selected
-                    </div>
-                    
-                    <div class="calendar-container">
-                        <div class="calendar-header">
-                            <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
-                            <h3 id="currentMonth"></h3>
-                            <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
-                        </div>
-                        
-                        <div class="calendar-grid" id="calendarDays">
-                            <div class="calendar-day">Sun</div>
-                            <div class="calendar-day">Mon</div>
-                            <div class="calendar-day">Tue</div>
-                            <div class="calendar-day">Wed</div>
-                            <div class="calendar-day">Thu</div>
-                            <div class="calendar-day">Fri</div>
-                            <div class="calendar-day">Sat</div>
-                        </div>
-                    </div>
-                    
-                    <div class="time-slots-container" id="timeSlotsContainer">
-                        <h4 style="color: #70410a; margin-bottom: 10px;">Select Time:</h4>
-                        <div class="time-slots-grid" id="timeSlotsGrid"></div>
-                    </div>
+                <div class="section-divider">
+                    <hr>
+                    <span><i class="fas fa-paper-plane"></i> Submit Options</span>
+                    <hr>
                 </div>
                 
-                <!-- Task Section -->
-                <div class="task-section">
-                    <h2><i class="fas fa-tasks"></i> Add Task</h2>
+                <!-- TWO BUTTONS - Client Request vs Referral -->
+                <div class="button-group two-buttons">
+                    <button type="button" class="action-button" onclick="submitClientRequest()">
+                        <i class="fas fa-user-check"></i> Submit Form as Client Request
+                    </button>
                     
-                    <!-- Quick Add Dropdown - ADDED DAUGHTER'S & HUSBAND'S EVENT -->
-                    <div class="form-group">
-                        <label class="form-label" for="quickAdd">Quick Add Template:</label>
-                        <select class="form-select" id="quickAdd">
-                            <option value="">Select a template or write custom below</option>
-                            <option value="Daughter's Event">👧 Daughter's Event</option>
-                            <option value="Husband's Event">👨 Husband's Event</option>
-                            <option value="Doctor's Appointment">🩺 Doctor's Appointment</option>
-                            <option value="Team Meeting">👥 Team Meeting</option>
-                            <option value="Travelling">✈️ Travelling</option>
-                            <option value="Event">🎉 Event</option>
-                            <option value="Zoom Meeting">💻 Zoom Meeting</option>
-                            <option value="Collaboration Session">🤝 Collaboration Session</option>
-                            <option value="Meet Client">💼 Meet Client</option>
-                            <option value="Live Event">📺 Live Event</option>
-                            <option value="Other">📝 Other (Custom)</option>
-                        </select>
-                    </div>
-                    
-                    <!-- Custom Task Section -->
-                    <div class="custom-task-section">
-                        <label class="form-label" for="customTask">
-                            <i class="fas fa-pencil-alt"></i> Custom Task (500 words max):
-                        </label>
-                        <textarea class="task-textarea" id="customTask" placeholder="Write your custom task here..." maxlength="3000"></textarea>
-                        <div class="word-counter">
-                            <i class="fas fa-words"></i> <span id="wordCount">0</span> / 500 words
-                        </div>
-                    </div>
-                    
-                    <!-- Action Buttons -->
-                    <div class="action-buttons">
-                        <button class="add-task-btn" id="addTaskBtn">
-                            <i class="fas fa-plus-circle"></i> Add Task
-                        </button>
-                        <button class="share-sms-btn" id="shareSMSBtn">
-                            <i class="fas fa-share-alt"></i> Share via SMS
-                        </button>
-                    </div>
-                    
-                    <!-- Tasks List (Hidden by default) -->
-                    <div class="tasks-list" id="tasksList">
-                        <h3>
-                            <span><i class="fas fa-list"></i> All Scheduled Tasks</span>
-                            <button class="close-tasks" id="closeTasksBtn"><i class="fas fa-times"></i></button>
-                        </h3>
-                        <div id="tasksContainer">
-                            <div class="no-tasks">No tasks scheduled yet</div>
-                        </div>
-                    </div>
+                    <button type="button" class="action-button" onclick="submitReferral()">
+                        <i class="fas fa-user-plus"></i> Submit Form as Referral
+                    </button>
                 </div>
+                
+                <p style="text-align: center; margin-top: 10px; font-size: 0.85rem; color: #70410a; opacity: 0.8;">
+                    <i class="fas fa-info-circle"></i> Both options send to the same number but help us categorize your request
+                </p>
             </div>
-        </div>
+        </form>
     </div>
     
-    <!-- Phone Number Modal -->
-    <div class="modal-overlay" id="phoneModal">
-        <div class="phone-modal">
-            <h3><i class="fas fa-phone-alt"></i> Enter Phone Number</h3>
-            <input type="tel" class="phone-input" id="phoneNumber" placeholder="(555) 555-5555">
-            <div class="modal-buttons">
-                <button class="modal-btn send" id="sendSMSBtn"><i class="fas fa-paper-plane"></i> Send SMS</button>
-                <button class="modal-btn cancel" id="cancelModalBtn"><i class="fas fa-times"></i> Cancel</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- PWA Install Prompt -->
-    <div class="install-prompt" id="installPrompt">
-        <span>📱 Install Jo-Ann's Calendar?</span>
-        <button id="installBtn">Install</button>
-    </div>
-
-    <!-- Service Worker Registration -->
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+    
     <script>
-        // PWA Installation
-        let deferredPrompt;
-        const installPrompt = document.getElementById('installPrompt');
-        const installBtn = document.getElementById('installBtn');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
+        const businessPhone = '5167701414';
+        
+        // Character count for comments
+        function updateCharCount() {
+            const comments = document.getElementById('comments');
+            const charCount = document.getElementById('charCount');
+            charCount.textContent = comments.value.length;
+        }
+        
+        // Make call function
+        function makeCall() {
+            window.location.href = `tel:${businessPhone}`;
+            showToast('Calling Jo-Ann... 📞');
+        }
+        
+        // Get all form values helper
+        function getFormData() {
+            return {
+                fullName: document.getElementById('fullName').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                companyName: document.getElementById('companyName').value,
+                state: document.getElementById('state').value,
+                service: document.getElementById('service').value,
+                bestTime: document.querySelector('input[name="time"]:checked')?.value || 'Not specified',
+                bestContact: document.querySelector('input[name="contact"]:checked')?.value || 'Not specified',
+                referrerName: document.getElementById('referrerName').value,
+                referrerPhone: document.getElementById('referrerPhone').value,
+                comments: document.getElementById('comments').value
+            };
+        }
+        
+        // Validate required fields
+        function validateForm() {
+            const data = getFormData();
+            if (!data.fullName || !data.phoneNumber || !data.state || !data.service) {
+                showToast('⚠️ Please fill in all required fields!');
+                return false;
+            }
+            return true;
+        }
+        
+        // Submit as Client Request
+        function submitClientRequest() {
+            if (!validateForm()) return;
+            
+            const data = getFormData();
+            
+            let message = '📋 NEW CLIENT REQUEST 📋\n\n';
+            message += `👤 Client Name: ${data.fullName}\n`;
+            message += `📱 Client Phone: ${data.phoneNumber}\n`;
+            message += `🏢 Company: ${data.companyName || 'Not provided'}\n`;
+            message += `📍 State: ${data.state}\n`;
+            message += `🛎️ Service Needed: ${data.service}\n`;
+            message += `⏰ Best Time: ${data.bestTime}\n`;
+            message += `📞 Best Way: ${data.bestContact}\n\n`;
+            
+            if (data.referrerName || data.referrerPhone) {
+                message += `👥 Referred By:\n`;
+                if (data.referrerName) message += `   Name: ${data.referrerName}\n`;
+                if (data.referrerPhone) message += `   Phone: ${data.referrerPhone}\n`;
+            }
+            
+            if (data.comments) {
+                message += `\n💬 Client Comments:\n${data.comments}\n`;
+            }
+            
+            message += `\n📅 Submitted: ${new Date().toLocaleString()}`;
+            message += `\n🔹 Type: Client Request`;
+            
+            const smsLink = `sms:${businessPhone}?body=${encodeURIComponent(message)}`;
+            window.location.href = smsLink;
+            
+            showToast('📋 Opening SMS with CLIENT REQUEST data!');
+        }
+        
+        // Submit as Referral
+        function submitReferral() {
+            if (!validateForm()) return;
+            
+            const data = getFormData();
+            
+            let message = '🤝 NEW REFERRAL SUBMISSION 🤝\n\n';
+            message += `👤 Referred Person: ${data.fullName}\n`;
+            message += `📱 Referred Phone: ${data.phoneNumber}\n`;
+            message += `🏢 Company: ${data.companyName || 'Not provided'}\n`;
+            message += `📍 State: ${data.state}\n`;
+            message += `🛎️ Service Needed: ${data.service}\n`;
+            message += `⏰ Best Time: ${data.bestTime}\n`;
+            message += `📞 Best Way: ${data.bestContact}\n\n`;
+            
+            if (data.referrerName || data.referrerPhone) {
+                message += `👥 REFERRER DETAILS:\n`;
+                message += `   Name: ${data.referrerName || 'Not provided'}\n`;
+                message += `   Phone: ${data.referrerPhone || 'Not provided'}\n`;
+            } else {
+                message += `👥 Referrer: Not specified (direct referral)\n`;
+            }
+            
+            if (data.comments) {
+                message += `\n💬 Additional Info:\n${data.comments}\n`;
+            }
+            
+            message += `\n📅 Submitted: ${new Date().toLocaleString()}`;
+            message += `\n🔹 Type: Referral`;
+            
+            const smsLink = `sms:${businessPhone}?body=${encodeURIComponent(message)}`;
+            window.location.href = smsLink;
+            
+            showToast('🤝 Opening SMS with REFERRAL data!');
+        }
+        
+        // Toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Prevent form from submitting normally
+        document.getElementById('referralForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            deferredPrompt = e;
-            installPrompt.classList.add('show');
-        });
-
-        installBtn.addEventListener('click', async () => {
-            if (!deferredPrompt) return;
-            
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            if (outcome === 'accepted') {
-                console.log('User accepted the install prompt');
-            }
-            installPrompt.classList.remove('show');
-            deferredPrompt = null;
-        });
-
-        window.addEventListener('appinstalled', () => {
-            console.log('PWA was installed');
-            installPrompt.classList.remove('show');
-        });
-
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js')
-                    .then(reg => console.log('Service Worker registered'))
-                    .catch(err => console.log('Service Worker error:', err));
-            });
-        }
-    </script>
-
-    <script>
-        // Calendar State
-        let currentDate = new Date();
-        let selectedDate = null;
-        let selectedTime = null;
-        let tasks = JSON.parse(localStorage.getItem('joannTasks')) || [];
-        
-        const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-        
-        // Business hours
-        const WORK_START_HOUR = 9;
-        const WORK_END_HOUR = 17;
-        const WORK_DAYS = [1, 2, 3, 4, 5];
-        
-        // DOM Elements
-        const selectedDateTimeDiv = document.getElementById('selectedDateTime');
-        const timeSlotsContainer = document.getElementById('timeSlotsContainer');
-        const timeSlotsGrid = document.getElementById('timeSlotsGrid');
-        const customTask = document.getElementById('customTask');
-        const wordCountSpan = document.getElementById('wordCount');
-        const tasksListDiv = document.getElementById('tasksList');
-        const tasksContainer = document.getElementById('tasksContainer');
-        const phoneModal = document.getElementById('phoneModal');
-        const phoneInput = document.getElementById('phoneNumber');
-        const viewAllTasksBtn = document.getElementById('viewAllTasksBtn');
-        const closeTasksBtn = document.getElementById('closeTasksBtn');
-        
-        // Generate time slots
-        function generateTimeSlots() {
-            timeSlotsGrid.innerHTML = '';
-            
-            for (let hour = WORK_START_HOUR; hour < WORK_END_HOUR; hour++) {
-                const timeLabel = hour <= 12 ? `${hour}:00 AM` : `${hour - 12}:00 PM`;
-                const timeSlot = document.createElement('div');
-                timeSlot.className = 'time-slot';
-                timeSlot.textContent = timeLabel;
-                timeSlot.dataset.time = `${hour}:00`;
-                
-                timeSlot.onclick = function() {
-                    document.querySelectorAll('.time-slot').forEach(ts => ts.classList.remove('selected'));
-                    this.classList.add('selected');
-                    selectedTime = this.dataset.time;
-                    updateSelectedDateTime();
-                    
-                    // Add slide animation class
-                    this.style.animation = 'slotPulse 0.4s ease';
-                    setTimeout(() => {
-                        this.style.animation = '';
-                    }, 400);
-                };
-                
-                timeSlotsGrid.appendChild(timeSlot);
-            }
-        }
-        
-        // Calendar helper functions
-        function isWeekend(date) {
-            const day = date.getDay();
-            return day === 0 || day === 6;
-        }
-        
-        function isPastDate(date) {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            return date < today;
-        }
-        
-        function isWorkDay(date) {
-            const day = date.getDay();
-            const workDayFormat = day === 0 ? 7 : day;
-            return WORK_DAYS.includes(workDayFormat);
-        }
-        
-        // Update selected date/time display
-        function updateSelectedDateTime() {
-            if (selectedDate && selectedTime) {
-                selectedDateTimeDiv.innerHTML = `<i class="fas fa-calendar-check"></i> Selected: ${selectedDate} at ${formatTimeForDisplay(selectedTime)}`;
-                selectedDateTimeDiv.style.animation = 'glowPulse 0.5s ease';
-                setTimeout(() => {
-                    selectedDateTimeDiv.style.animation = 'glowPulse 3s infinite';
-                }, 500);
-            } else if (selectedDate) {
-                selectedDateTimeDiv.innerHTML = `<i class="fas fa-calendar"></i> Selected: ${selectedDate} - Please select a time`;
-            } else {
-                selectedDateTimeDiv.innerHTML = '<i class="fas fa-clock"></i> No date and time selected';
-            }
-        }
-        
-        function formatTimeForDisplay(time) {
-            const hour = parseInt(time.split(':')[0]);
-            return hour <= 12 ? `${hour}:00 AM` : `${hour - 12}:00 PM`;
-        }
-        
-        // Render calendar
-        function renderCalendar() {
-            const calendarDays = document.getElementById('calendarDays');
-            const currentMonthElement = document.getElementById('currentMonth');
-            
-            const days = calendarDays.querySelectorAll('.calendar-date, .empty-day');
-            days.forEach(d => d.remove());
-
-            const currentYear = currentDate.getFullYear();
-            const currentMonth = currentDate.getMonth();
-            
-            currentMonthElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
-            
-            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-            const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-            for(let i = 0; i < firstDay; i++) {
-                const empty = document.createElement('div');
-                empty.className = 'empty-day';
-                calendarDays.appendChild(empty);
-            }
-
-            for(let i = 1; i <= lastDate; i++) {
-                const dateDiv = document.createElement('div');
-                dateDiv.className = 'calendar-date';
-                dateDiv.textContent = i;
-                
-                const cellDate = new Date(currentYear, currentMonth, i);
-                
-                // Check if this date has tasks
-                const dateString = `${monthNames[currentMonth]} ${i}, ${currentYear}`;
-                if (hasTaskOnDate(dateString)) {
-                    dateDiv.classList.add('has-task');
-                }
-                
-                if (isWeekend(cellDate) || isPastDate(cellDate) || !isWorkDay(cellDate)) {
-                    dateDiv.classList.add('disabled');
-                } else {
-                    dateDiv.onclick = () => {
-                        document.querySelectorAll('.calendar-date').forEach(d => d.classList.remove('selected'));
-                        dateDiv.classList.add('selected');
-                        selectedDate = dateString;
-                        
-                        selectedTime = null;
-                        document.querySelectorAll('.time-slot').forEach(ts => ts.classList.remove('selected'));
-                        
-                        timeSlotsContainer.style.display = 'block';
-                        timeSlotsContainer.style.animation = 'slideDown 0.5s ease';
-                        updateSelectedDateTime();
-                    };
-                }
-                
-                calendarDays.appendChild(dateDiv);
-            }
-        }
-        
-        // Check if date has tasks
-        function hasTaskOnDate(dateString) {
-            return tasks.some(task => task.date === dateString);
-        }
-        
-        // Update tasks list display
-        function updateTasksList() {
-            if (tasks.length === 0) {
-                tasksContainer.innerHTML = '<div class="no-tasks">No tasks scheduled yet</div>';
-                return;
-            }
-            
-            // Sort tasks by date and time
-            tasks.sort((a, b) => {
-                if (a.date === b.date) {
-                    return a.time.localeCompare(b.time);
-                }
-                return new Date(a.date) - new Date(b.date);
-            });
-            
-            let html = '';
-            tasks.forEach((task, index) => {
-                html += `
-                    <div class="task-item" style="animation: slideIn 0.3s ease ${index * 0.1}s both">
-                        <div class="task-info">
-                            <div class="task-date">
-                                <i class="fas fa-calendar-alt"></i> ${task.date} at ${formatTimeForDisplay(task.time)}
-                            </div>
-                            <div class="task-text">${task.text}</div>
-                        </div>
-                        <div class="delete-task" onclick="deleteTask(${index})">
-                            <i class="fas fa-trash-alt"></i>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            tasksContainer.innerHTML = html;
-            
-            // Save to localStorage
-            localStorage.setItem('joannTasks', JSON.stringify(tasks));
-            
-            // Re-render calendar to update task indicators
-            renderCalendar();
-        }
-        
-        // Delete task
-        window.deleteTask = function(index) {
-            tasks.splice(index, 1);
-            updateTasksList();
-        };
-        
-        // Word counter
-        function updateWordCount() {
-            const text = customTask.value.trim();
-            const words = text === '' ? 0 : text.split(/\s+/).length;
-            wordCountSpan.textContent = words;
-            
-            if (words > 500) {
-                wordCountSpan.style.color = '#ff4444';
-            } else {
-                wordCountSpan.style.color = '#70410a';
-            }
-        }
-        
-        // Add task
-        function addTask() {
-            if (!selectedDate) {
-                alert('Please select a date first!');
-                return;
-            }
-            
-            if (!selectedTime) {
-                alert('Please select a time!');
-                return;
-            }
-            
-            let taskText = customTask.value.trim();
-            
-            if (!taskText) {
-                alert('Please enter a task description!');
-                return;
-            }
-            
-            // Check word count
-            const words = taskText.split(/\s+/).length;
-            if (words > 500) {
-                alert('Task cannot exceed 500 words!');
-                return;
-            }
-            
-            tasks.push({
-                date: selectedDate,
-                time: selectedTime,
-                text: taskText,
-                timestamp: new Date().getTime()
-            });
-            
-            updateTasksList();
-            
-            // Clear form
-            customTask.value = '';
-            document.getElementById('quickAdd').value = '';
-            updateWordCount();
-            
-            alert('Task added successfully!');
-        }
-        
-        // Share via SMS
-        function shareViaSMS() {
-            if (tasks.length === 0) {
-                alert('No tasks to share!');
-                return;
-            }
-            
-            phoneModal.classList.add('show');
-        }
-        
-        // Send SMS
-        function sendSMS() {
-            const phoneNumber = phoneInput.value.trim();
-            
-            if (!phoneNumber) {
-                alert('Please enter a phone number');
-                return;
-            }
-            
-            // Format message with ALL task details
-            let message = "📋 Jo-Ann's Task Calendar:\n\n";
-            
-            tasks.forEach((task, index) => {
-                message += `${index + 1}. ${task.date} at ${formatTimeForDisplay(task.time)}\n`;
-                message += `   📝 ${task.text}\n\n`;
-            });
-            
-            message += "─────────────────\n";
-            message += "Sent via Jo-Ann's Task Calendar App";
-            
-            // Send SMS with full content preserved
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
-            } else {
-                alert(`SMS would be sent to: ${phoneNumber}\n\nMessage Preview:\n${message.substring(0, 200)}...\n\nOn a mobile device, this would open your messaging app automatically with the complete task list.`);
-                
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(message).then(() => {
-                        alert(`✓ Complete task list (${tasks.length} tasks) copied to clipboard!\n\nYou can now paste it into any messaging app.\n\nSend to: ${phoneNumber}`);
-                    }).catch(err => {
-                        console.error('Clipboard error:', err);
-                        alert('Could not copy to clipboard. Please manually copy the message.');
-                    });
-                }
-            }
-            
-            // Close modal
-            phoneModal.classList.remove('show');
-            phoneInput.value = '';
-        }
-        
-        // Event Listeners
-        document.getElementById('prevMonth').onclick = () => { 
-            const newDate = new Date(currentDate);
-            newDate.setMonth(newDate.getMonth() - 1);
-            currentDate = newDate;
-            renderCalendar(); 
-        };
-        
-        document.getElementById('nextMonth').onclick = () => { 
-            const newDate = new Date(currentDate);
-            newDate.setMonth(newDate.getMonth() + 1);
-            currentDate = newDate;
-            renderCalendar(); 
-        };
-        
-        // Quick add dropdown
-        document.getElementById('quickAdd').onchange = function() {
-            if (this.value) {
-                if (this.value === "Other") {
-                    customTask.value = "📝 Custom task: ";
-                } else {
-                    customTask.value = this.value;
-                }
-                updateWordCount();
-                customTask.focus();
-                
-                // Add animation to the textarea
-                customTask.style.animation = 'slideIn 0.5s ease';
-                setTimeout(() => {
-                    customTask.style.animation = '';
-                }, 500);
-            }
-        };
-        
-        // Word count on input
-        customTask.addEventListener('input', updateWordCount);
-        
-        // Add task button
-        document.getElementById('addTaskBtn').addEventListener('click', addTask);
-        
-        // Share SMS button
-        document.getElementById('shareSMSBtn').addEventListener('click', shareViaSMS);
-        
-        // View All Tasks button
-        viewAllTasksBtn.addEventListener('click', () => {
-            tasksListDiv.classList.add('show');
-            updateTasksList();
-            tasksListDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         
-        // Close Tasks button
-        closeTasksBtn.addEventListener('click', () => {
-            tasksListDiv.classList.remove('show');
+        // Add floating spotlight effect
+        document.addEventListener('mousemove', function(e) {
+            const x = e.clientX / window.innerWidth * 100;
+            const y = e.clientY / window.innerHeight * 100;
+            document.body.style.setProperty('--mouse-x', x + '%');
+            document.body.style.setProperty('--mouse-y', y + '%');
         });
-        
-        // Modal buttons
-        document.getElementById('sendSMSBtn').addEventListener('click', sendSMS);
-        document.getElementById('cancelModalBtn').addEventListener('click', () => {
-            phoneModal.classList.remove('show');
-            phoneInput.value = '';
-        });
-        
-        // Close modal on overlay click
-        phoneModal.addEventListener('click', function(e) {
-            if (e.target === phoneModal) {
-                phoneModal.classList.remove('show');
-                phoneInput.value = '';
-            }
-        });
-        
-        // Smooth scroll for external and internal links
-        document.addEventListener('click', function(e) {
-            const link = e.target.closest('a[href*="#"]');
-            if (link) {
-                const href = link.getAttribute('href');
-                
-                if (href.includes('#application')) {
-                    e.preventDefault();
-                    const targetElement = document.getElementById('application');
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                        history.pushState(null, null, '#application');
-                    }
-                }
-            }
-        });
-        
-        // Check URL hash on page load
-        window.addEventListener('load', function() {
-            if (window.location.hash === '#application') {
-                setTimeout(() => {
-                    document.getElementById('application').scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }, 100);
-            }
-        });
-        
-        // Initialize
-        generateTimeSlots();
-        renderCalendar();
-        updateTasksList();
-        timeSlotsContainer.style.display = 'none';
     </script>
 </body>
 </html>
